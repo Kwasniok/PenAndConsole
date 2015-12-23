@@ -24,7 +24,8 @@
 
 /* Begin PBXFileReference section */
 		B40162761C2B38F600141591 /* PenAndConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PenAndConsole; sourceTree = BUILT_PRODUCTS_DIR; };
-		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
+		B40162801C2B391E00141591 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +58,18 @@
 		B40162781C2B38F600141591 /* PenAndConsole */ = {
 			isa = PBXGroup;
 			children = (
-				B40162791C2B38F600141591 /* main.cpp */,
+				B40162801C2B391E00141591 /* .gitignore */,
+				B40162811C2B395B00141591 /* src */,
 			);
 			path = PenAndConsole;
+			sourceTree = "<group>";
+		};
+		B40162811C2B395B00141591 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B40162791C2B38F600141591 /* main.cpp */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
