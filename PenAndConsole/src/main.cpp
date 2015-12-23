@@ -63,6 +63,7 @@ struct Reaction {
 	std::string description;
 	std::vector<std::pair<std::string, std::string>> set_context_vars;
 	std::vector<Item> give_items;
+	std::vector<Item> take_items;
 
 	bool operator==(const Reaction& rhs) {
 		return this->description == rhs.description;
@@ -86,6 +87,17 @@ struct Inventory {
 
 	void give(const Item& i) {
 		items.push_back(i);
+	}
+
+	bool remove(const Item& i) {
+
+		auto it =  std::find(items.begin(), items.end(), i);
+		if (it != items.end()) {
+			items.erase(it);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	bool has_item(const Item& i) {
@@ -136,6 +148,10 @@ public:
 			inventory.give(*i);
 		}
 
+		for (auto i = reaction.take_items.begin(); i != reaction.take_items.end(); ++i) {
+			inventory.remove(*i);
+		}
+
 		for (auto cv = reaction.set_context_vars.begin(); cv != reaction.set_context_vars.end(); ++cv) {
 			context_vars[cv->first] = cv->second;
 		}
@@ -154,6 +170,8 @@ int main(int argc, const char * argv[]) {
 	cxt.actions.push_back({"hello", {}, {}, {"no respond"}});
 	cxt.actions.push_back({"open door",  {{"door", "closed"}}, {}, {"crunching noise", {{"door", "opend" }}, {}}});
 	cxt.actions.push_back({"close door", {{"door", "opend" }}, {}, {"crunching noise", {{"door", "closed"}}, {}}});
+	cxt.actions.push_back({"grab stone", {}, {}, {"grabbed stone", {}, {{"stone"}}, {}}});
+	cxt.actions.push_back({"throw stone", {}, {{"stone"}}, {"off it goes", {}, {}, {{"stone"}}}});
 
 
 	Reaction r;
