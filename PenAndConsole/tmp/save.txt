@@ -1,0 +1,58 @@
+Context {
+	actions = {
+		Action {
+			key = "hello";
+			reaction = Reaction {
+				description = "no respond"
+			}
+		};
+		Action {
+			key = "open door";
+			needes_cxt_vars = {
+				{door:closed}
+			};
+			reaction = Reaction {
+				description = "crunching noise";
+				set_cxt_vars = {
+					{door:opend}
+				}
+			}
+		};
+		Action {
+			key = "close door";
+			needes_cxt_vars = {
+				{door:opend}
+			};
+			reaction = Reaction {
+				description = "crunching noise";
+				set_cxt_vars = {
+					{door:closed}
+				}
+			}
+		};
+		Action {
+			key = "grab stone";
+			reaction = Reaction {
+				description = "grabbed stone";
+				give_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			neddes_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				description = "off it goes";
+				take_items = {
+					"stone"
+				}
+			}
+		}
+	};
+	cxt_vars = {
+		{door:closed}
+	}
+}
