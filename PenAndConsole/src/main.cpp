@@ -167,7 +167,7 @@ public:
 class File_Writer : public std::ofstream {
 public:
 	int intendation_level = 0;
-	bool wrap = false;
+	bool _wrap = false;
 
 	File_Writer(const char* path) : ofstream(path) { }
 
@@ -179,6 +179,18 @@ public:
 		pf(*this);
 		return *this;
 	}
+
+	template <class K, class V>
+	File_Writer& operator<<(const pair<K, V>& p);
+	template <class K, class V>
+	File_Writer& operator<<(const map<K, V>& m);
+	template <class T>
+	File_Writer& operator<<(const vector<T>& v);
+	File_Writer& operator<<(const Item& i);
+	File_Writer& operator<<(const Reaction& r);
+	File_Writer& operator<<(const Action& r);
+	File_Writer& operator<<(const Inventory& r);
+	File_Writer& operator<<(const Context& r);
 };
 
 
@@ -203,42 +215,21 @@ File_Writer& unintend (File_Writer& fw) {
 
 File_Writer& sep (File_Writer& fw) {
 	fw << ';';
-	if(fw.wrap)
+	if(fw._wrap)
 		fw << nl;
 	return fw;
 }
 
 File_Writer& wrap (File_Writer& fw) {
-	fw.wrap = true;
+	fw._wrap = true;
 	return fw;
 }
-
 
 
 File_Writer& unwrap (File_Writer& fw) {
-	fw.wrap = false;
+	fw._wrap = false;
 	return fw;
 }
-
-
-template <class K, class V>
-void write_to_stream(File_Writer& os, const pair<K, V>& p);
-
-template <class K, class V>
-void write_to_stream(File_Writer& os, const map<K, V>& m);
-
-template <class T>
-void write_to_stream(File_Writer& os, const vector<T>& v);
-
-void write_to_stream(File_Writer& os, const Item& i);
-
-void write_to_stream(File_Writer& os, const Reaction& r);
-
-void write_to_stream(File_Writer& os, const Action& r);
-
-void write_to_stream(File_Writer& os, const Inventory& r);
-
-void write_to_stream(File_Writer& os, const Context& r);
 
 
 int main(int argc, const char * argv[]) {
@@ -263,7 +254,7 @@ int main(int argc, const char * argv[]) {
 	i2.items.push_back({"item3"});
 	cxt2.actions.push_back({"action1"});
 	File_Writer fw {"/Users/Jens/Datein/Xcode/PenAndConsole/PenAndConsole/tmp/save.txt"};
-	write_to_stream(fw, cxt);
+	fw << cxt;
 	//
 
 	Reaction r;
@@ -280,143 +271,148 @@ int main(int argc, const char * argv[]) {
 
 
 template <class K, class V>
-void write_to_stream(File_Writer& os, const pair<K, V>& p) {
-	os << '{' << p.first << ':' << p.second << '}';
+File_Writer& File_Writer::operator<<(const pair<K, V>& p) {
+	*this << '{' << p.first << ':' << p.second << '}';
+	return *this;
 }
 
 template <class K, class V>
-void write_to_stream(File_Writer& os, const map<K, V>& m) {
-	os << '{';
-	if (os.wrap)
-		os << intend;
+File_Writer& File_Writer::operator<<(const map<K, V>& m) {
+	*this << '{';
+	if (_wrap)
+		*this << intend;
 	bool first = true;
 	for (auto it = m.begin(); it != m.end(); ++it) {
 		if (!first) {
-			os << sep;
+			*this << sep;
 		}
 		else
 			first = false;
-		write_to_stream(os, *it);
+		*this << *it;
 	}
-	if (os.wrap)
-		os << unintend;
-	os << '}';
+	if (_wrap)
+		*this << unintend;
+	*this << '}';
+	return *this;
 }
 
 template <class T>
-void write_to_stream(File_Writer& os, const vector<T>& v) {
-	os << '{';
-	if (os.wrap)
-		os << intend;
+File_Writer& File_Writer::operator<<(const vector<T>& v) {
+	*this << '{';
+	if (_wrap)
+		*this << intend;
 	bool first = true;
 	for (auto it = v.begin(); it != v.end(); ++it) {
 		if (!first) {
-			os << sep;
+			*this << sep;
 		}
 		else
 			first = false;
-		write_to_stream(os, *it);
+		*this << *it;
 	}
-	if (os.wrap)
-		os << unintend;
-	os << '}';
+	if (_wrap)
+		*this << unintend;
+	*this << '}';
+	return *this;
 }
 
 
-void write_to_stream(File_Writer& os, const Item& i) {
-		os << '"' << i.id << '"';
+File_Writer& File_Writer::operator<<(const Item& i) {
+	*this << '"' << i.id << '"';
+	return *this;
 }
 
 
-void write_to_stream(File_Writer& os, const Reaction& r) {
-	os << "Reaction {";
-	os << intend;
+File_Writer& File_Writer::operator<<(const Reaction& r) {
+	*this << "Reaction {";
+	*this << intend;
 
-	os << "description = \"" << r.description << '"';
+	*this << "description = \"" << r.description << '"';
 
 	if (!r.set_context_vars.empty()) {
-		os << sep;
-		os << "set_cxt_vars = ";
-		write_to_stream(os, r.set_context_vars);
+		*this << sep;
+		*this << "set_cxt_vars = ";
+		*this << r.set_context_vars;
 	}
 
 	if (!r.give_items.empty()) {
-		os << sep;
-		os << "give_items = ";
-		write_to_stream(os, r.give_items);
+		*this << sep;
+		*this << "give_items = ";
+		*this << r.give_items;
 	}
 
 	if (!r.take_items.empty()) {
-		os << sep;
-		os << "take_items = ";
-		write_to_stream(os, r.take_items);
+		*this << sep;
+		*this << "take_items = ";
+		*this<< r.take_items;
 	}
 
-	os << unintend;
-	os << '}';
+	*this << unintend;
+ 	*this << '}';
+	return *this;
 }
 
-void write_to_stream(File_Writer& os, const Action& a) {
-	os << "Action {";
-	os << intend;
+File_Writer& File_Writer::operator<<(const Action& a) {
+	*this << "Action {";
+	*this << intend;
 
-	os << "key = \"" << a.key << '"';
+	*this << "key = \"" << a.key << '"';
 
 	if (!a.needs_context_vars_to_be.empty()) {
-		os << sep;
-		os << "needes_cxt_vars = ";
-		write_to_stream(os, a.needs_context_vars_to_be);
+		*this << sep;
+		*this << "needes_cxt_vars = ";
+		*this << a.needs_context_vars_to_be;
 	}
 
 	if (!a.needs_items.empty()) {
-		os << sep;
-		os << "neddes_items = ";
-		write_to_stream(os, a.needs_items);
+		*this << sep;
+		*this << "neddes_items = ";
+		*this << a.needs_items;
 	}
 
-	os << sep;
-	os << "reaction = ";
-	write_to_stream(os, a.reaction);
+	*this << sep;
+	*this << "reaction = ";
+	*this << a.reaction;
 
-	os << unintend;
-	os << '}';
+	*this << unintend;
+	*this << '}';
+	return *this;
 }
 
-void write_to_stream(File_Writer& os, const Inventory& i) {
-	os << "Inventory ";
-	//os << intend;
-	write_to_stream(os, i.items);
-	//os << unintend;
+File_Writer& File_Writer::operator<<(const Inventory& i) {
+	*this << "Inventory ";
+	*this << i.items;
+	return *this;
 }
 
-void write_to_stream(File_Writer& os, const Context& c) {
-	os << "Context {";
-	os << intend;
-	os << wrap;
+File_Writer& File_Writer::operator<<(const Context& c) {
+	*this << "Context {";
+	*this << intend << wrap;
 
 	bool first = true;
 
 	if (!c.actions.empty()){
 		first = false;
-		os << "actions = ";
-		write_to_stream(os, c.actions);
+		*this << "actions = ";
+		*this << c.actions;
 	}
 
 	if (!c.inventory.empty()) {
-		if(!first) {os << sep; first = false;}
-		os << "inventory = ";
-		write_to_stream(os, c.inventory);
+		if(!first) {*this << sep; first = false;}
+		*this << "inventory = ";
+		*this << c.inventory;
 	}
 
 	if (!c.context_vars.empty()) {
-		if(!first) {os << sep; first = false;}
-		os << "cxt_vars = ";
-		write_to_stream(os, c.context_vars);
+		if(!first) {*this << sep; first = false;}
+		*this << "cxt_vars = ";
+		*this << c.context_vars;
 	}
 
-	os << unwrap;
-	os << unintend;
- 	os << '}';
-	os.flush();
+	*this << unwrap << unintend;
+	*this << '}';
+	this->flush();
+
+	return *this;
 }
 
