@@ -348,6 +348,72 @@ int main(int argc, const char * argv[]) {
 
 		}
 
+		if (c.last_input() == "show debug info") {
+			c.costream() << endl << "inventory: ";
+			bool first = true;
+			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
+				if (!first) c.costream() << " ~ ";
+				first = false;
+				c.costream() << it->id;
+			}
+			c.costream() << endl;
+			c.costream() << endl << "actions:";
+			c.costream() << endl << "\t key @{needs item | needs context var to be}"
+						 << endl << "\t -> response @ {gives itmes | takes items | set context vars to}" << endl;
+			first = true;
+			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
+				c.costream() << endl << '\t';
+				first = false;
+				c.costream() << it->key << " @{";
+				bool first2 = true;
+				for (auto it2=it->needs_items.begin(); it2!=it->needs_items.end(); ++it2) {
+					if (!first2) c.costream() << ", ";
+					first2 = false;
+					c.costream() << it2->id;
+				}
+				c.costream() << " | ";
+				first2 = true;
+				for (auto it2=it->needs_context_vars_to_be.begin(); it2!=it->needs_context_vars_to_be.end(); ++it2) {
+					if (!first2) c.costream() << ", ";
+					first2 = false;
+					c.costream() << it2->first << " : " << it2->second;
+				}
+				c.costream() << "}";
+				c.costream() << endl << "\t -> " << it->reaction.description << " @{";
+				first2 = true;
+				for (auto it2=it->reaction.give_items.begin(); it2!=it->reaction.give_items.end(); ++it2) {
+					if (!first2) c.costream() << ", ";
+					first2 = false;
+					c.costream() << it2->id;
+				}
+				c.costream() << " | ";
+				first2 = true;
+				for (auto it2=it->reaction.take_items.begin(); it2!=it->reaction.take_items.end(); ++it2) {
+					if (!first2) c.costream() << ", ";
+					first2 = false;
+					c.costream() << it2->id;
+				}
+				c.costream() << " | ";
+				first2 = true;
+				for (auto it2=it->reaction.set_context_vars.begin(); it2!=it->reaction.set_context_vars.end(); ++it2) {
+					if (!first2) c.costream() << ", ";
+					first2 = false;
+					c.costream() << it2->first << " : " << it2->second;
+				}
+				c.costream() << "}";
+			}
+			c.costream() << endl;
+			c.costream() << endl << "context vars: ";
+			first = true;
+			for (auto it=cxt.context_vars.begin(); it!=cxt.context_vars.end(); ++it) {
+				c.costream() << endl << '\t';
+				first = false;
+				c.costream() << it->first << " : " << it->second;
+			}
+			c.costream() << endl << endl;
+
+		}
+
 		if (c.last_input() == "show inventory") {
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
