@@ -52,12 +52,7 @@ Context {
 			}
 		}
 	};
-	inventory = Inventory {
-		"stone";
-		"stick";
-		"dirt"
-	};
 	cxt_vars = Map {
-		Pair {first = door; second = opend}
+		Pair {first = door; second = closed}
 	}
 }

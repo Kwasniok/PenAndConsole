@@ -26,7 +26,9 @@
 		B40162761C2B38F600141591 /* PenAndConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PenAndConsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B40162801C2B391E00141591 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		B40C0DE61C2E1BFD00A24D60 /* save4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save4.txt; sourceTree = "<group>"; };
 		B43E78661C2D9507005CE259 /* save.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save.txt; sourceTree = "<group>"; };
+		B43E78671C2DA78A005CE259 /* save2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				B43E78661C2D9507005CE259 /* save.txt */,
+				B43E78671C2DA78A005CE259 /* save2.txt */,
+				B40C0DE61C2E1BFD00A24D60 /* save4.txt */,
 			);
 			path = tmp;
 			sourceTree = "<group>";
