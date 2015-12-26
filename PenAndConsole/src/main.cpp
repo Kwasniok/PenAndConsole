@@ -142,8 +142,6 @@ public:
 
 				if (context_vars_okay & has_items)
 					return ac->reaction;
-				else
-					return Reaction::none;
 			}
 		}
 		return Reaction::none;
