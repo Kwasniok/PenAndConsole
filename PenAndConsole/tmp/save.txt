@@ -7,12 +7,31 @@ Context {
 			}
 		};
 		Action {
+			key = "hello?";
+			reaction = Reaction {
+				description = "*distant whispering*"
+			}
+		};
+		Action {
+			key = "hello!";
+			reaction = Reaction {
+				description = "..."
+			}
+		};
+		Action {
+			key = "ping";
+			reaction = Reaction {
+				description = "pong"
+			}
+		};
+		Action {
 			key = "open door";
 			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
 				Pair {first = door; second = closed}
 			};
 			reaction = Reaction {
-				description = "crunching noise";
+				description = "*crunching noise*";
 				set_cxt_vars = {
 					Pair {first = door; second = opend}
 				}
@@ -21,17 +40,33 @@ Context {
 		Action {
 			key = "close door";
 			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
 				Pair {first = door; second = opend}
 			};
 			reaction = Reaction {
-				description = "crunching noise";
+				description = "*crunching noise*";
 				set_cxt_vars = {
 					Pair {first = door; second = closed}
 				}
 			}
 		};
 		Action {
+			key = "look around";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start}
+			};
+			reaction = Reaction {
+				description = "you observe a pile of stones next to you";
+				give_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
 			key = "grab stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+			};
 			reaction = Reaction {
 				description = "grabbed stone";
 				give_items = {
@@ -48,16 +83,126 @@ Context {
 				description = "off it goes";
 				take_items = {
 					"stone"
+				};
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_items = {
+				"stone"
+			};
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = one}
+			};
+			reaction = Reaction {
+				description = "off it goes";
+				take_items = {
+					"stone"
+				};
+				set_cxt_vars = {
+					Pair {first = throw_count; second = two}
 				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_items = {
+				"stone"
+			};
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = two}
+			};
+			reaction = Reaction {
+				description = "off it goes again";
+				take_items = {
+					"stone"
+				};
+				set_cxt_vars = {
+					Pair {first = throw_count; second = three}
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_items = {
+				"stone"
+			};
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = three}
+			};
+			reaction = Reaction {
+				description = "*braking glass*";
+				take_items = {
+					"stone"
+				};
+				set_cxt_vars = {
+					Pair {first = throw_count; second = deactivated};
+					Pair {first = window_status; second = broken}
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_items = {
+				"stone"
+			};
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = deactivated}
+			};
+			reaction = Reaction {
+				description = "no effect";
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "walk to window";
+			reaction = Reaction {
+				set_cxt_vars = {
+					Pair {first = player_position; second = window};
+				}
+			}
+		};
+		Action {
+			key = "walk back";
+			reaction = Reaction {
+				set_cxt_vars = {
+					Pair {first = player_position; second = start};
+				}
+			}
+		};
+		Action {
+			key = "am I dead?";
+			reaction = Reaction {
+				description = "maybe"
+			}
+		};
+		Action {
+			key = "help";
+			reaction = Reaction {
+				description = "no help"
+			}
+		};
+		Action {
+			key = "boring";
+			reaction = Reaction {
+				description = "and it's just the beginning"
 			}
 		}
 	};
 	inventory = Inventory {
 		"stone";
-		"stick";
-		"dirt"
+		"stick"
 	};
 	cxt_vars = Map {
-		Pair {first = door; second = opend}
+		Pair {first = player_position; second = start};
+		Pair {first = door; second = opend};
+		Pair {first = window_status; second = intact};
+		Pair {first = throw_count; second = one}
 	}
 }
