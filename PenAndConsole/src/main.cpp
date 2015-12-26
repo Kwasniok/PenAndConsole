@@ -34,7 +34,7 @@ public:
 
 	void aquire_input() {
 		cos << promt_in;
-		getline(cis, buffer);
+		getline(cis, buffer, '\n');
 	}
 
 	std::string last_input() {
