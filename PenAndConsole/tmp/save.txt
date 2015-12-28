@@ -65,7 +65,7 @@ Context {
 		Action {
 			key = "grab stone";
 			needs_cxt_vars = {
-				Pair {first = player_position; second = start};
+				Pair {first = player_position; second = start}
 			};
 			reaction = Reaction {
 				description = "grabbed stone";
@@ -76,82 +76,70 @@ Context {
 		};
 		Action {
 			key = "throw stone";
-			needs_items = {
-				"stone"
-			};
-			reaction = Reaction {
-				description = "off it goes";
-				take_items = {
-					"stone"
-				};
-			}
-		};
-		Action {
-			key = "throw stone";
-			needs_items = {
-				"stone"
-			};
 			needs_cxt_vars = {
 				Pair {first = player_position; second = start};
 				Pair {first = throw_count; second = one}
 			};
+			needs_items = {
+				"stone"
+			};
 			reaction = Reaction {
 				description = "off it goes";
-				take_items = {
-					"stone"
-				};
 				set_cxt_vars = {
 					Pair {first = throw_count; second = two}
+				};
+				take_items = {
+					"stone"
 				}
 			}
 		};
 		Action {
 			key = "throw stone";
-			needs_items = {
-				"stone"
-			};
 			needs_cxt_vars = {
 				Pair {first = player_position; second = start};
 				Pair {first = throw_count; second = two}
 			};
+			needs_items = {
+				"stone"
+			};
 			reaction = Reaction {
 				description = "off it goes again";
-				take_items = {
-					"stone"
-				};
 				set_cxt_vars = {
 					Pair {first = throw_count; second = three}
+				};
+				take_items = {
+					"stone"
 				}
 			}
 		};
 		Action {
 			key = "throw stone";
-			needs_items = {
-				"stone"
-			};
 			needs_cxt_vars = {
 				Pair {first = player_position; second = start};
 				Pair {first = throw_count; second = three}
 			};
+			needs_items = {
+				"stone"
+			};
 			reaction = Reaction {
 				description = "*braking glass*";
-				take_items = {
-					"stone"
-				};
 				set_cxt_vars = {
 					Pair {first = throw_count; second = deactivated};
 					Pair {first = window_status; second = broken}
+				};
+				take_items = {
+					"stone"
 				}
 			}
 		};
 		Action {
 			key = "throw stone";
-			needs_items = {
-				"stone"
-			};
 			needs_cxt_vars = {
 				Pair {first = player_position; second = start};
 				Pair {first = throw_count; second = deactivated}
+			};
+			needs_items = {
+				"stone"
 			};
 			reaction = Reaction {
 				description = "no effect";
@@ -163,16 +151,18 @@ Context {
 		Action {
 			key = "walk to window";
 			reaction = Reaction {
+				description = "";
 				set_cxt_vars = {
-					Pair {first = player_position; second = window};
+					Pair {first = player_position; second = window}
 				}
 			}
 		};
 		Action {
 			key = "walk back";
 			reaction = Reaction {
+				description = "";
 				set_cxt_vars = {
-					Pair {first = player_position; second = start};
+					Pair {first = player_position; second = start}
 				}
 			}
 		};
@@ -193,6 +183,28 @@ Context {
 			reaction = Reaction {
 				description = "and it's just the beginning"
 			}
+		};
+		Action {
+			key = "load game";
+			needs_cxt_vars = {
+				Pair {first = session_count; second = first}
+			};
+			reaction = Reaction {
+				description = "hello. welcome to this dark place.
+   have fun exploring your own nightmare!";
+				set_cxt_vars = {
+					Pair {first = session_count; second = not_first}
+				}
+			}
+		};
+		Action {
+			key = "load game";
+			needs_cxt_vars = {
+				Pair {first = session_count; second = not_first}
+			};
+			reaction = Reaction {
+				description = "hello again"
+			}
 		}
 	};
 	inventory = Inventory {
@@ -200,9 +212,10 @@ Context {
 		"stick"
 	};
 	cxt_vars = Map {
-		Pair {first = player_position; second = start};
 		Pair {first = door; second = opend};
-		Pair {first = window_status; second = intact};
-		Pair {first = throw_count; second = one}
+		Pair {first = player_position; second = start};
+		Pair {first = session_count; second = first};
+		Pair {first = throw_count; second = one};
+		Pair {first = window_status; second = intact}
 	}
 }
