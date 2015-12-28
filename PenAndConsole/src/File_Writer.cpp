@@ -17,7 +17,7 @@ File_Writer& File_Writer::operator<<(const bool b) {
 }
 
 File_Writer& File_Writer::operator<<(const char c) {
-	std::ofstream::operator<<(c);
+	put(c);
 	return *this;
 }
 
