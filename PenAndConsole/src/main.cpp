@@ -74,6 +74,7 @@ int main(int argc, const char * argv[]) {
 
 				if (!fr.fail()) {
 					c.print("loaded game");
+					c.ghost_write({"@loaded_game"});
 					cxt = std::move(tmp);
 				} else {
 					c.print("could not read file.");
@@ -102,6 +103,7 @@ int main(int argc, const char * argv[]) {
 
 				if (fw.good()) {
 					c.print("game saved");
+					c.ghost_write({"@saved_game"});
 				} else {
 					c.print("game not saved due to file error!");
 				}
@@ -123,6 +125,8 @@ int main(int argc, const char * argv[]) {
 		}
 
 		else if (c.last_input() == "show debug info") {
+			c.ghost_write({"@show_debug_info"});
+
 			c.costream() << endl << "inventory: ";
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
@@ -193,6 +197,8 @@ int main(int argc, const char * argv[]) {
 		}
 
 		else if (c.last_input() == "show possible actions") { // except hidden actions
+			c.ghost_write({"@show_possible_actions"});
+
 			bool first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
 				if (!it->hidden && cxt.is_possible_action(*it)) {
@@ -208,6 +214,8 @@ int main(int argc, const char * argv[]) {
 		}
 
 		else if (c.last_input() == "show inventory") {
+			c.ghost_write({"@show_inventory"});
+			
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
 				if (!first) c.costream() << " ~ ";

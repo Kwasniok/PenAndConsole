@@ -29,6 +29,10 @@ public:
 		getline(cis, buffer, '\n');
 	}
 
+	void ghost_write(const std::string& ghost_input) {
+		buffer = ghost_input;
+	}
+
 	std::string last_input() {
 		return buffer;
 	}
