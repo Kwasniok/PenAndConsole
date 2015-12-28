@@ -73,10 +73,15 @@ bool read_escaped_string_to(const std::string& esc_str, std::string& dest) {
 
 	bool escaped = false;
 	for (ci=1; ci < esc_str.length() -1; ++ci) {
-		if (esc_str[ci] == '"' && !escaped) break;
-		if (esc_str[ci] == '\\') {escaped = true; continue;}
-		tmp += esc_str[ci];
-		escaped = false;
+		if (escaped) {
+			if (esc_str[ci] == '\\') tmp += '\\';
+			if (esc_str[ci] == '"') tmp += '"';
+			if (esc_str[ci] == 'n') tmp += '\n';
+			escaped = false;
+		} else {
+			if (esc_str[ci] == '\\') escaped = true;
+			else tmp += esc_str[ci];
+		}
 	}
 
 	if (ci == esc_str.length() - 1) {

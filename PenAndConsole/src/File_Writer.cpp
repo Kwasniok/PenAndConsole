@@ -24,13 +24,12 @@ File_Writer& File_Writer::operator<<(const char c) {
 File_Writer& File_Writer::operator<<(const char* s) {
 	if (_escape)
 		*this << '"';
-	for (char c = *s; c = *s, c!='\0'; ++s) {
-		if (_escape && c == '"') {
-			*this << '\\';
-			*this << '"';
-		} else {
-			*this << c;
+	for (char c; c = *s, c!='\0'; ++s) {
+		if (_escape) {
+			if (c == '"') { *this << '\\'; *this << '"'; continue;}
+			if (c == '\n') { *this << '\\'; *this << 'n'; continue;}
 		}
+		*this << c;
 	}
 	if (_escape)
 		*this << '"';
