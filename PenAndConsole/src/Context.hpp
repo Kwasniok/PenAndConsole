@@ -24,6 +24,7 @@ public:
 
 	Reaction get_reaction(const std::string& action);
 	void evaluate_reaction(const Reaction& reaction);
+	bool is_possible_action(const Action& a);
 	
 };
 

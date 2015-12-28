@@ -152,6 +152,21 @@ int main(int argc, const char * argv[]) {
 
 		}
 
+		if (c.last_input() == "show possible actions") {
+			bool first = true;
+			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
+				if (cxt.is_possible_action(*it)) {
+					if (!first) c.costream() << " ~ ";
+					first = false;
+					c.costream() << it->key;
+				}
+			}
+			if (first)
+				c.costream() << "~ no actions possible ~";
+			c.costream() << endl;
+
+		}
+
 		if (c.last_input() == "show inventory") {
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
