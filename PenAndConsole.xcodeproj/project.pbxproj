@@ -34,7 +34,6 @@
 		B40162761C2B38F600141591 /* PenAndConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PenAndConsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B40162801C2B391E00141591 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
-		B40C0DE61C2E1BFD00A24D60 /* save4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save4.txt; sourceTree = "<group>"; };
 		B4245A3C1C3180B800DF1489 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
 		B4245A3D1C3180B800DF1489 /* Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Console.hpp; sourceTree = "<group>"; };
 		B4245A3F1C31815600DF1489 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
@@ -52,8 +51,6 @@
 		B4245A501C3182CC00DF1489 /* File_Writer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File_Writer.hpp; sourceTree = "<group>"; };
 		B4245A521C31837500DF1489 /* File_Reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File_Reader.cpp; sourceTree = "<group>"; };
 		B4245A531C31837500DF1489 /* File_Reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File_Reader.hpp; sourceTree = "<group>"; };
-		B43E78661C2D9507005CE259 /* save.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save.txt; sourceTree = "<group>"; };
-		B43E78671C2DA78A005CE259 /* save2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = save2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				B40162801C2B391E00141591 /* .gitignore */,
-				B43E78651C2D8959005CE259 /* tmp */,
 				B40162811C2B395B00141591 /* src */,
 			);
 			path = PenAndConsole;
@@ -116,16 +112,6 @@
 				B4245A521C31837500DF1489 /* File_Reader.cpp */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		B43E78651C2D8959005CE259 /* tmp */ = {
-			isa = PBXGroup;
-			children = (
-				B43E78661C2D9507005CE259 /* save.txt */,
-				B43E78671C2DA78A005CE259 /* save2.txt */,
-				B40C0DE61C2E1BFD00A24D60 /* save4.txt */,
-			);
-			path = tmp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
