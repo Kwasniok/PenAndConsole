@@ -45,8 +45,27 @@ bool Context::is_possible_action(const Action& ac) {
 	}
 
 	for (auto cv = ac.needs_context_vars_to_be.begin(); cv != ac.needs_context_vars_to_be.end(); ++cv) {
-		if (context_vars[cv->first] != cv->second) {
-			return false;
+		if (cv->second.length() == 0) continue;
+
+		std::string requested_value;
+		bool negate = false;
+		int i = 0;
+		char c;
+		for ( ; i<cv->second.length(); ++i) {
+			c = cv->second[i];
+			if (c == '!') negate = !negate;
+			else break;
+		}
+		requested_value = cv->second.substr(i);
+
+		if (negate) {
+			if (context_vars[cv->first] == requested_value) {
+				return false;
+			}
+		} else {
+			if (context_vars[cv->first] != requested_value) {
+				return false;
+			}
 		}
 	}
 
