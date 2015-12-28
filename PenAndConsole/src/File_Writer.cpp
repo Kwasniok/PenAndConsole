@@ -137,6 +137,18 @@ File_Writer& File_Writer::operator<<(const Action& a) {
 		*this << a.hidden;
 	}
 
+	if (a.trigger_once_only) {
+		*this << sep;
+		*this << "trigger_once_only = ";
+		*this << a.trigger_once_only;
+	}
+
+	if (a.was_triggered) {
+		*this << sep;
+		*this << "was_triggered = ";
+		*this << a.was_triggered;
+	}
+
 	if (!a.needs_context_vars_to_be.empty()) {
 		*this << sep;
 		*this << "needs_cxt_vars = ";

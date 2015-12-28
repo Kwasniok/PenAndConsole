@@ -8,48 +8,53 @@
 
 #include "Context.hpp"
 
-Reaction Context::get_reaction(const std::string& action) {
+Action Context::none_action {};
+
+Action& Context::get_action(const std::string& action) {
 
 	for (auto ac = actions.begin(); ac != actions.end(); ++ac) {
 		if (action == ac->key && is_possible_action(*ac)) {
-			return ac->reaction;
+			return *ac;
 		}
 	}
-	return Reaction::none;
+	return none_action;
 }
 
-void Context::evaluate_reaction(const Reaction& reaction) {
+void Context::evaluate_action(Action& action) {
 
-	for (auto i = reaction.give_items.begin(); i != reaction.give_items.end(); ++i) {
+	if (action.trigger_once_only)
+		action.was_triggered = true;
+
+	for (auto i = action.reaction.give_items.begin(); i != action.reaction.give_items.end(); ++i) {
 		inventory.give(*i);
 	}
 
-	for (auto i = reaction.take_items.begin(); i != reaction.take_items.end(); ++i) {
+	for (auto i = action.reaction.take_items.begin(); i != action.reaction.take_items.end(); ++i) {
 		inventory.remove(*i);
 	}
 
-	for (auto cv = reaction.set_context_vars.begin(); cv != reaction.set_context_vars.end(); ++cv) {
+	for (auto cv = action.reaction.set_context_vars.begin(); cv != action.reaction.set_context_vars.end(); ++cv) {
 		context_vars[cv->first] = cv->second;
 	}
 }
 
 bool Context::is_possible_action(const Action& ac) {
 
-	bool context_vars_okay = true;
+	if (ac.trigger_once_only && ac.was_triggered) {
+		return false;
+	}
+
 	for (auto cv = ac.needs_context_vars_to_be.begin(); cv != ac.needs_context_vars_to_be.end(); ++cv) {
 		if (context_vars[cv->first] != cv->second) {
-			context_vars_okay = false;
-			break;
+			return false;
 		}
 	}
 
-	bool has_items = true;
 	for (auto ni = ac.needs_items.begin(); ni != ac.needs_items.end(); ++ni) {
 		if (!inventory.has_item(*ni)) {
-			has_items = false;
-			break;
+			return false;;
 		}
 	}
 
-	return context_vars_okay && has_items;
+	return true;
 }

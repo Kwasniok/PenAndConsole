@@ -7,5 +7,3 @@
 //
 
 #include "Reaction.hpp"
-
-const Reaction Reaction::none {""};

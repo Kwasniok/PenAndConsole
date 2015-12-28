@@ -197,6 +197,14 @@ bool operator>>(Block& b, Action& a) {
 			good |= read_bool_to(b.sub_blocks[i].value, tmp.hidden);
 		}
 
+		if (b.sub_blocks[i].name == "trigger_once_only") {
+			good |= read_bool_to(b.sub_blocks[i].value, tmp.trigger_once_only);
+		}
+
+		if (b.sub_blocks[i].name == "was_triggered") {
+			good |= read_bool_to(b.sub_blocks[i].value, tmp.was_triggered);
+		}
+
 		if (b.sub_blocks[i].name == "needs_cxt_vars") {
 			for (auto it=b.sub_blocks[i].sub_blocks.begin(); it!=b.sub_blocks[i].sub_blocks.end(); ++it) {
 				std::pair<std::string, std::string> tmp_pair;

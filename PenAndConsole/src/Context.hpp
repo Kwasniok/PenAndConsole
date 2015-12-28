@@ -18,12 +18,14 @@
 
 class Context {
 public:
+	static Action none_action;
+
 	std::vector<Action> actions;
 	Inventory inventory;
 	std::map<std::string, std::string> context_vars;
 
-	Reaction get_reaction(const std::string& action);
-	void evaluate_reaction(const Reaction& reaction);
+	Action& get_action(const std::string& action);
+	void evaluate_action(Action& action);
 	bool is_possible_action(const Action& a);
 	
 };

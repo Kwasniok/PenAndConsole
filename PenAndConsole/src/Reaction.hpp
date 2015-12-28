@@ -15,18 +15,19 @@
 #include "Item.hpp"
 
 struct Reaction {
-	static const Reaction none;
 
 	std::string description;
 	std::vector<std::pair<std::string, std::string>> set_context_vars;
 	std::vector<Item> give_items;
 	std::vector<Item> take_items;
 
-	bool operator==(const Reaction& rhs) {
-		return this->description == rhs.description;
-	}
-	bool operator!=(const Reaction& rhs) {
-		return !(*this == rhs);
+	bool has_description() {return !description.empty();}
+
+	bool none() const {
+		return description.empty()
+			&& set_context_vars.empty()
+			&& give_items.empty()
+			&& take_items.empty();
 	}
 };
 

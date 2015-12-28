@@ -96,16 +96,16 @@ int main(int argc, const char * argv[]) {
 			}
 			c.costream() << endl;
 			c.costream() << endl << "actions:";
-			c.costream() << endl << "\t key @[hidden]{needs item | needs context var to be}"
-						 << endl << "\t -> response @ {gives itmes | takes items | set context vars to}" << endl;
+			c.costream() << endl << "\t key @[hidden;trigger_once_only;was_triggered]{needs item | needs context var to be}"
+						 << endl << "\t -> response @{gives itmes | takes items | set context vars to}" << endl;
 			first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
 				c.costream() << endl << '\t';
 				first = false;
-				c.costream() << it->key << " @";
-				if (it->hidden) {
-					c.costream() << "[y]";
-				}
+				c.costream() << it->key << " @["
+					<< it->hidden << ';'
+					<< it->trigger_once_only << ';'
+					<< it->was_triggered << "]";
 				c.costream() << "{";
 				bool first2 = true;
 				for (auto it2=it->needs_items.begin(); it2!=it->needs_items.end(); ++it2) {
@@ -156,7 +156,7 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-		if (c.last_input() == "show possible actions") {
+		if (c.last_input() == "show possible actions") { // except hidden actions
 			bool first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
 				if (!it->hidden && cxt.is_possible_action(*it)) {
@@ -181,10 +181,10 @@ int main(int argc, const char * argv[]) {
 			c.costream() << endl;
 		}
 
-		Reaction r = cxt.get_reaction(c.last_input());
-		cxt.evaluate_reaction(r);
-		if (r != Reaction::none) {
-			c.print(r.description);
+		Action& ac = cxt.get_action(c.last_input());
+		cxt.evaluate_action(ac);
+		if (ac.reaction.has_description()) {
+			c.print(ac.reaction.description);
 		}
 
 	} while (c.last_input() != "quit game");
