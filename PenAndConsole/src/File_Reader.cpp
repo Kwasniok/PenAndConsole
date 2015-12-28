@@ -330,11 +330,13 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 
 			// type name
 			tmp.type = next_word_until(is_whitespace, false);
+			if (!this->good()) break;
 
 			// find block beginn
 			*this >> c;
 			if (c == '{') {
 				*this >> tmp.sub_blocks;
+				if (!this->good()) break;
 				consume_close_bracket = true;
 			} else {
 				fail = true;
@@ -344,6 +346,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 
 			// keyword
 			tmp.name = next_word_until(is_whitespace, false);
+			if (!this->good()) break;
 
 			// find assignment
 			*this >> c;
@@ -354,6 +357,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 				if (c == '{') { // list
 
 					*this >> tmp.sub_blocks;
+					if (!this->good()) break;
 					consume_close_bracket = true;
 
 				} else if (is_upper(c)) { // new Block
@@ -362,11 +366,13 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 					this->layer_forbids_enum = true;
 					*this >> tmp.sub_blocks;
 					this->layer_forbids_enum = false;
+					if (!this->good()) break;
 
 				} else { // plain value
 
 					this->putback(c);
 					tmp.value = next_word_until(is_delimiter, true);
+					if (!this->good()) break;
 				}
 			} else {
 				fail = true;
@@ -376,6 +382,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 
 			// take as value
 			tmp.value = next_word_until(is_delimiter, true);
+			if (!this->good()) break;
 
 		}
 
@@ -392,17 +399,32 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 			}
 		}
 
+		/*
 		if (this->eof()) {
 			break;
 		}
+		*/
 
+		// ';' at this position indicates more blocks on this level
+		//     e.g. another item in a list or another variable
+		// '}' is allways a delimiter
+		//     e.g. end of list or instance
 		*this >> c;
 		if (c == ';') continue;
 		if (c == '}' && !consume_close_bracket) {
 			this->putback(c);
 		}
 		if (prev_layer_forbids_enum) break;
+
+		// reaching EOF is not a fail
+		// EOF can be used as final delimiter
+		fail = this->fail();
 		*this >> c;
+		if (this->eof() && !fail) {
+			this->clear(std::ios::eofbit);
+			break;
+		}
+
 		if (c != ';') {
 			this->putback(c);
 			break;
