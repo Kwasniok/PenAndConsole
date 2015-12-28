@@ -96,13 +96,17 @@ int main(int argc, const char * argv[]) {
 			}
 			c.costream() << endl;
 			c.costream() << endl << "actions:";
-			c.costream() << endl << "\t key @{needs item | needs context var to be}"
+			c.costream() << endl << "\t key @[hidden]{needs item | needs context var to be}"
 						 << endl << "\t -> response @ {gives itmes | takes items | set context vars to}" << endl;
 			first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
 				c.costream() << endl << '\t';
 				first = false;
-				c.costream() << it->key << " @{";
+				c.costream() << it->key << " @";
+				if (it->hidden) {
+					c.costream() << "[y]";
+				}
+				c.costream() << "{";
 				bool first2 = true;
 				for (auto it2=it->needs_items.begin(); it2!=it->needs_items.end(); ++it2) {
 					if (!first2) c.costream() << ", ";
@@ -155,7 +159,7 @@ int main(int argc, const char * argv[]) {
 		if (c.last_input() == "show possible actions") {
 			bool first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
-				if (cxt.is_possible_action(*it)) {
+				if (!it->hidden && cxt.is_possible_action(*it)) {
 					if (!first) c.costream() << " ~ ";
 					first = false;
 					c.costream() << it->key;

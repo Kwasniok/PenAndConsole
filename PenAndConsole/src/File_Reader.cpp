@@ -86,6 +86,12 @@ bool read_escaped_string_to(const std::string& esc_str, std::string& dest) {
 	return false;
 }
 
+bool read_bool_to(const std::string& value, bool& dest) {
+	if (value == "true") {dest = true; return true;}
+	if (value == "false") {dest = false; return true;}
+	return false;
+}
+
 bool operator>>(Block& b, std::pair<std::string, std::string>& p) {
 	std::pair<std::string, std::string> tmp;
 	bool good = (b.type == "Pair");
@@ -185,6 +191,10 @@ bool operator>>(Block& b, Action& a) {
 
 		if (b.sub_blocks[i].name == "key") {
 			good |= read_escaped_string_to(b.sub_blocks[i].value, tmp.key);
+		}
+
+		if (b.sub_blocks[i].name == "hidden") {
+			good |= read_bool_to(b.sub_blocks[i].value, tmp.hidden);
 		}
 
 		if (b.sub_blocks[i].name == "needs_cxt_vars") {

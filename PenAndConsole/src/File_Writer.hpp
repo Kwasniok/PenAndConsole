@@ -32,6 +32,8 @@ public:
 		return *this;
 	}
 
+	File_Writer& operator<<(const bool b);
+	File_Writer& operator<<(const char c);
 	File_Writer& operator<<(const char* str);
 	File_Writer& operator<<(const std::string& str);
 	template <class K, class V>

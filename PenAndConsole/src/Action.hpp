@@ -19,6 +19,7 @@ struct Action {
 	std::vector<std::pair<std::string, std::string>> needs_context_vars_to_be;
 	std::vector<Item> needs_items;
 	Reaction reaction;
+	bool hidden = false;
 };
 
 #endif /* Action_hpp */

@@ -8,6 +8,19 @@
 
 #include "File_Writer.hpp"
 
+File_Writer& File_Writer::operator<<(const bool b) {
+	if (b)
+		*this << "true";
+	else
+		*this << "false";
+	return *this;
+}
+
+File_Writer& File_Writer::operator<<(const char c) {
+	std::ofstream::operator<<(c);
+	return *this;
+}
+
 File_Writer& File_Writer::operator<<(const char* s) {
 	if (_escape)
 		*this << '"';
@@ -115,6 +128,12 @@ File_Writer& File_Writer::operator<<(const Action& a) {
 	*this << intend;
 
 	*this << "key = " << escape << a.key << unescape;
+
+	if (a.hidden) {
+		*this << sep;
+		*this << "hidden = ";
+		*this << a.hidden;
+	}
 
 	if (!a.needs_context_vars_to_be.empty()) {
 		*this << sep;

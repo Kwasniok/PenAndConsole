@@ -20,6 +20,7 @@ Context {
 		};
 		Action {
 			key = "ping";
+			hidden = true;
 			reaction = Reaction {
 				description = "pong"
 			}
