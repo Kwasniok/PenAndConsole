@@ -98,7 +98,9 @@ File_Writer& File_Writer::operator<<(const Reaction& r) {
 	*this << "Reaction {";
 	*this << intend;
 
-	*this << "description = " << escape << r.description << unescape;
+	bool prev_wrap = _wrap;
+	*this << "description = " << unwrap << escape << r.description << unescape;
+	_wrap = prev_wrap;
 
 	if (!r.set_context_vars.empty()) {
 		*this << sep;
