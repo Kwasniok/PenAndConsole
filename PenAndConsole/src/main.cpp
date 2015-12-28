@@ -15,6 +15,9 @@
 
 using namespace std;
 
+bool begins_with(const std::string& str, const std::string& beg);
+bool is_valid_file_name(const string& str);
+
 int main(int argc, const char * argv[]) {
 
 	// Various Tests //
@@ -50,34 +53,67 @@ int main(int argc, const char * argv[]) {
 	fw4 << cxt4;
 	 */
 
+	const std::string path_save = "/Users/Jens/Datein/Xcode/PenAndConsole/PenAndConsole/tmp/";
 	do {
 		c.aquire_input();
 
-		if (c.last_input() == "load game") {
-			File_Reader fr {"/Users/Jens/Datein/Xcode/PenAndConsole/PenAndConsole/tmp/save.txt"};
-			Context tmp;
-			fr >> tmp;
-			if (!fr.good()) {
-				c.print("loaded game");
-				cxt = std::move(tmp);
+		if (begins_with(c.last_input(), "load game ")) {
+
+			std::string file_name = c.last_input().substr(10); // cut of "load game "
+			if(is_valid_file_name(file_name)) {
+
+				std::string path_save_file = path_save;
+				path_save_file += file_name;
+				path_save_file += ".txt";
+
+				File_Reader fr {path_save_file.c_str()};
+
+				Context tmp;
+				if(fr.good())
+					fr >> tmp;
+
+				if (!fr.fail()) {
+					c.print("loaded game");
+					cxt = std::move(tmp);
+				} else {
+					c.print("could not read file.");
+				}
+
+				fr.close();
+
 			} else {
-				c.print("could not read file.");
+				c.print("only a-zA-Z0-9 is allowed as file name");
 			}
-			fr.close();
 		}
 
-		if (c.last_input() == "save game") {
-			File_Writer fw {"/Users/Jens/Datein/Xcode/PenAndConsole/PenAndConsole/tmp/save.txt"};
-			fw << cxt;
-			if (fw.good()) {
-				c.print("game saved");
+		else if (begins_with(c.last_input(), "save game ")) {
+
+			std::string file_name = c.last_input().substr(10); // cut of "save game "
+			if(is_valid_file_name(file_name)) {
+
+				std::string path_save_file = path_save;
+				path_save_file += file_name;
+				path_save_file += ".txt";
+
+				File_Writer fw {path_save_file.c_str()};
+
+				if(fw.good())
+					fw << cxt;
+
+				if (fw.good()) {
+					c.print("game saved");
+				} else {
+					c.print("game not saved due to file error!");
+				}
+
+				fw.close();
+
 			} else {
-				c.print("game not saved due to file error!");
+				c.print("only a-zA-Z0-9 is allowed as file name");
 			}
-			fw.close();
 		}
 
-		if (c.last_input() == "show game stats") {
+		else if (c.last_input() == "show game stats") {
 			c.costream() << endl
 			<< "\t   -==- STATS -==- " << endl
 			<< "\tactions loaded:     " << cxt.actions.size() << endl
@@ -86,7 +122,7 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-		if (c.last_input() == "show debug info") {
+		else if (c.last_input() == "show debug info") {
 			c.costream() << endl << "inventory: ";
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
@@ -156,7 +192,7 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-		if (c.last_input() == "show possible actions") { // except hidden actions
+		else if (c.last_input() == "show possible actions") { // except hidden actions
 			bool first = true;
 			for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
 				if (!it->hidden && cxt.is_possible_action(*it)) {
@@ -171,7 +207,7 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-		if (c.last_input() == "show inventory") {
+		else if (c.last_input() == "show inventory") {
 			bool first = true;
 			for (auto it=cxt.inventory.items.begin(); it!=cxt.inventory.items.end(); ++it) {
 				if (!first) c.costream() << " ~ ";
@@ -189,4 +225,26 @@ int main(int argc, const char * argv[]) {
 
 	} while (c.last_input() != "quit game");
 
+}
+
+bool begins_with(const std::string& str, const std::string& beg) {
+	if (str.length() < beg.length()) return false;
+
+	for (int i=0; i<beg.length(); ++i) {
+		if (str[i] != beg[i]) return false;
+	}
+
+	return true;
+}
+
+bool is_valid_file_name(const string& str){
+	for (int i=0; i<str.length(); ++i) {
+		char c = str[i];
+		if (!((c >= 48 && c <= 57) || // digits
+			  (c >= 65 && c <= 90) || // A-Z
+			  (c >= 97 && c <= 122)   // a-z
+			))
+			return false;
+	}
+	return !str.empty();
 }
