@@ -199,7 +199,7 @@ void print_debug_info(Console&c, Context& cxt) {
 	}
 	c.costream() << endl;
 	c.costream() << endl << "actions (" << cxt.actions.size() << "):";
-	c.costream() << endl << "\t key @[hidden;trigger_once_only;was_triggered]{needs item | needs context var to be}"
+	c.costream() << endl << "\t key @[hidden;trigger_once_only;was_triggered]{needs items | forbids items | needs context var to be}"
 	<< endl << "\t -> response @{gives itmes | takes items | set context vars to}" << endl;
 	first = true;
 	for (auto it=cxt.actions.begin(); it!=cxt.actions.end(); ++it) {
@@ -212,6 +212,13 @@ void print_debug_info(Console&c, Context& cxt) {
 		c.costream() << "{";
 		bool first2 = true;
 		for (auto it2=it->needs_items.begin(); it2!=it->needs_items.end(); ++it2) {
+			if (!first2) c.costream() << ", ";
+			first2 = false;
+			c.costream() << it2->id;
+		}
+		c.costream() << " | ";
+		first2 = true;
+		for (auto it2=it->forbids_items.begin(); it2!=it->forbids_items.end(); ++it2) {
 			if (!first2) c.costream() << ", ";
 			first2 = false;
 			c.costream() << it2->id;

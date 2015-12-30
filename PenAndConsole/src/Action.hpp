@@ -19,6 +19,7 @@ struct Action {
 	std::string key;
 	std::vector<std::pair<std::string, std::string>> needs_context_vars_to_be;
 	std::vector<Item> needs_items;
+	std::vector<Item> forbids_items;
 	Reaction reaction;
 	bool hidden = false;
 	bool trigger_once_only = false;

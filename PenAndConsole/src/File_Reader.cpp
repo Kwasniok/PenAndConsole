@@ -226,6 +226,14 @@ bool operator>>(Block& b, Action& a) {
 			}
 		}
 
+		if (b.sub_blocks[i].name == "forbids_items") {
+			for (auto it=b.sub_blocks[i].sub_blocks.begin(); it!=b.sub_blocks[i].sub_blocks.end(); ++it) {
+				Item tmp_itm;
+				good |= (*it >> tmp_itm);
+				if (good) tmp.forbids_items.push_back(tmp_itm);
+			}
+		}
+
 		if (b.sub_blocks[i].name == "reaction" && !b.sub_blocks[i].sub_blocks.empty()) {
 			Reaction tmp_r;
 			good |= (b.sub_blocks[i].sub_blocks[0] >> tmp_r);

@@ -75,5 +75,11 @@ bool Context::is_possible_action(const Action& ac) {
 		}
 	}
 
+	for (auto ni = ac.forbids_items.begin(); ni != ac.forbids_items.end(); ++ni) {
+		if (inventory.has_item(*ni)) {
+			return false;;
+		}
+	}
+
 	return true;
 }

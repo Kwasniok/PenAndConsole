@@ -160,6 +160,12 @@ File_Writer& File_Writer::operator<<(const Action& a) {
 		*this << a.needs_items;
 	}
 
+	if (!a.forbids_items.empty()) {
+		*this << sep;
+		*this << "forbids_items = ";
+		*this << a.forbids_items;
+	}
+
 	*this << sep;
 	*this << "reaction = ";
 	*this << a.reaction;
