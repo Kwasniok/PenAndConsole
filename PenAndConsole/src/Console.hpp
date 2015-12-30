@@ -19,7 +19,7 @@ private:
 	std::string buffer;
 
 	const std::string promt_in = ">> ";
-	const std::string promt_out = "<< ";
+	const std::string promt_out = "";
 
 public:
 	Console(std::istream& cis, std::ostream& cos) : cis(cis), cos(cos) { }
