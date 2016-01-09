@@ -18,6 +18,7 @@
 
 using namespace std;
 
+//! @return true if string begins with exactly this characters
 bool begins_with(const std::string& str, const std::string& beg);
 bool is_valid_file_name(const string& str);
 
@@ -30,14 +31,19 @@ int main(int argc, const char * argv[]) {
 
 	if (do_tests()) return EXIT_SUCCESS;
 
+	// fundamental setup
 	Console c {cin, cout};
 	Context cxt;
 
+	// main loop
 	bool show_possible_actions_permanently = false;
 	const std::string path_save = "/Users/Jens/Datein/Xcode/PenAndConsole/PenAndConsole/tmp/";
 	do {
+
+		// whait for next line of input
 		c.aquire_input();
 
+		// check for standart commands first:
 		if (begins_with(c.last_input(), "load game ")) {
 
 			std::string file_name = c.last_input().substr(10); // cut of "load game "
@@ -120,10 +126,12 @@ int main(int argc, const char * argv[]) {
 			print_inventory(c, cxt);
 		}
 
+
+		// execute action and print narrative description (if possible)
 		Action& ac = cxt.get_action(c.last_input());
 		cxt.evaluate_action(ac);
-		if (ac.reaction.has_description()) {
-			c.print(ac.reaction.description);
+		if (ac.reaction.has_narrative_description()) {
+			c.print(ac.reaction.narrative_description);
 		}
 
 		if (show_possible_actions_permanently) {
@@ -206,7 +214,7 @@ void print_debug_info(Console&c, Context& cxt) {
 			c.costream() << it2->first << " : " << it2->second;
 		}
 		c.costream() << "}";
-		c.costream() << endl << "\t -> " << it->reaction.description << " @{";
+		c.costream() << endl << "\t -> " << it->reaction.narrative_description << " @{";
 		first2 = true;
 		for (auto it2=it->reaction.give_items.begin(); it2!=it->reaction.give_items.end(); ++it2) {
 			if (!first2) c.costream() << ", ";

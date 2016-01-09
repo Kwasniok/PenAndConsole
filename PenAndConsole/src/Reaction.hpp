@@ -16,15 +16,16 @@
 
 struct Reaction {
 
-	std::string description;
+	//! narrative desciption given to the player
+	std::string narrative_description;
 	std::vector<std::pair<std::string, std::string>> set_context_vars;
 	std::vector<Item> give_items;
 	std::vector<Item> take_items;
 
-	bool has_description() {return !description.empty();}
+	bool has_narrative_description() {return !narrative_description.empty();}
 
 	bool none() const {
-		return description.empty()
+		return narrative_description.empty()
 			&& set_context_vars.empty()
 			&& give_items.empty()
 			&& take_items.empty();

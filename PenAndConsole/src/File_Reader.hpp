@@ -15,11 +15,17 @@
 
 #include "Context.hpp"
 
-// auxiliary universal input buffer
+//! @brief auxiliary universal input buffer <p>
+//! Blocks represent a part or the whole content of a file as a tree-shaped graph.
+//! @warning syntactic format checks only!
 struct Block {
+	//! type (class)
 	std::string type;
+	//! name of attribute or varaible (in an asignment)
 	std::string name;
+	//! value (of assignment)
 	std::string value;
+	//! nested blocks inside this block (e.g. items when list)
 	std::vector<Block> sub_blocks;
 
 	bool empty() const {
@@ -27,10 +33,15 @@ struct Block {
 	}
 };
 
+//! @waring no change when format is voilated!
 bool operator>>(Block& b, Item& i);
+//! @waring no change when format is voilated!
 bool operator>>(Block& b, Reaction& r);
+//! @waring no change when format is voilated!
 bool operator>>(Block& b, Action& a);
+//! @waring no change when format is voilated!
 bool operator>>(Block& b, Inventory& i);
+//! @waring no change when format is voilated!
 bool operator>>(Block& b, Context& c);
 
 class File_Reader : public std::ifstream {
@@ -38,9 +49,9 @@ class File_Reader : public std::ifstream {
 public:
 	File_Reader(const char* path) : std::ifstream(path) { }
 
-	std::string next_word_until(bool (*is_func) (const char c), bool putback);
+	//! @waring no change when format is voilated!
 	File_Reader& operator>>(std::vector<Block>& b);
-
+	//! @waring no change when format is voilated!
 	File_Reader& operator>>(Context& r);
 	
 };

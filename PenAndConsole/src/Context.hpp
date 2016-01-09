@@ -24,8 +24,13 @@ public:
 	Inventory inventory;
 	std::map<std::string, std::string> context_vars;
 
+	//! @return first action in actions whith this key which is possible
+	//! 		or 'none' action when no action with this key is possible
 	Action& get_action(const std::string& action);
+	//! executes action
+	//! @warning does not check if action is possible
 	void evaluate_action(Action& action);
+	//! @return true if contitions of action allow execution
 	bool is_possible_action(const Action& a);
 	
 };

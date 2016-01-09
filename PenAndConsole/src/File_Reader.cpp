@@ -24,6 +24,8 @@ bool is_lower(char c) {
 	return c >= 97 && c <= 122;
 }
 
+
+//! @return copied string with no leading or trailing white space
 void cut_of_trailing_ws(std::string& s) {
 
 	auto botws = s.length(); // begin_of_trailing_ws
@@ -45,7 +47,8 @@ void cut_of_trailing_ws(std::string& s) {
 	}
 }
 
-// skips white space!
+//! @return true if next characters until white space match
+//! @waring skips white space!
 bool has_next_keyword(File_Reader& fr, const char* str, bool skip_key_word) {
 	auto prev_pos = fr.tellg();
 	bool success = true;
@@ -63,6 +66,9 @@ bool has_next_keyword(File_Reader& fr, const char* str, bool skip_key_word) {
 	return success;
 }
 
+//! If string matched format of an escaped string it removes sourrounding quotes and unecapes newlines etc. .
+//! Otherwise the dest string remains untouched.
+//! @return true if string was valid
 bool read_escaped_string_to(const std::string& esc_str, std::string& dest) {
 	std::string tmp;
 
@@ -91,6 +97,7 @@ bool read_escaped_string_to(const std::string& esc_str, std::string& dest) {
 	return false;
 }
 
+//! converts ecplitit 'true' and 'false' back to values
 bool read_bool_to(const std::string& value, bool& dest) {
 	if (value == "true") {dest = true; return true;}
 	if (value == "false") {dest = false; return true;}
@@ -153,8 +160,8 @@ bool operator>>(Block& b, Reaction& r) {
 
 	for (int i=0; good && i < b.sub_blocks.size(); ++i) {
 
-		if (b.sub_blocks[i].name == "description") {
-			good |= read_escaped_string_to(b.sub_blocks[i].value, tmp.description);
+		if (b.sub_blocks[i].name == "narrative_description") {
+			good |= read_escaped_string_to(b.sub_blocks[i].value, tmp.narrative_description);
 		}
 
 		if (b.sub_blocks[i].name == "set_cxt_vars") {
@@ -303,17 +310,20 @@ bool operator>>(Block& b, Context& c) {
 	return good;
 }
 
-std::string File_Reader::next_word_until(bool (*is_func) (const char c), bool putback) {
+//! @param is_function a function indication to stop when an a special character apperas
+//! @param putback put return to previous position after leading
+//! @warning skips leading white space
+std::string next_word_until(File_Reader& fr, bool (*is_func) (const char c), bool putback) {
 	char c = '\0';
 	std::string tmp;
-	while (this->good()) {
-		c = this->get();
+	while (fr.good()) {
+		c = fr.get();
 		if (is_func(c)) break;
 		tmp += c;
 	}
 
 	if (c != '\0' && putback)
-		this->putback(c);
+		fr.putback(c);
 
 	return tmp;
 }
@@ -337,7 +347,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 		if (is_upper(c)) { // assume type
 
 			// type name
-			tmp.type = next_word_until(is_whitespace, false);
+			tmp.type = next_word_until(*this, is_whitespace, false);
 			if (!this->good()) break;
 
 			// find block beginn
@@ -353,7 +363,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 		} else if (is_lower(c)) { // assume value
 
 			// keyword
-			tmp.name = next_word_until(is_whitespace, false);
+			tmp.name = next_word_until(*this, is_whitespace, false);
 			if (!this->good()) break;
 
 			// find assignment
@@ -379,7 +389,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 				} else { // plain value
 
 					this->putback(c);
-					tmp.value = next_word_until(is_delimiter, true);
+					tmp.value = next_word_until(*this, is_delimiter, true);
 					if (!this->good()) break;
 				}
 			} else {
@@ -389,7 +399,7 @@ File_Reader& File_Reader::operator>>(std::vector<Block>& b) {
 		} else {
 
 			// take as value
-			tmp.value = next_word_until(is_delimiter, true);
+			tmp.value = next_word_until(*this, is_delimiter, true);
 			if (!this->good()) break;
 
 		}

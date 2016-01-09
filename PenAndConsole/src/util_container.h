@@ -9,6 +9,7 @@
 #ifndef util_container_h
 #define util_container_h
 
+//! @return true if item is in container
 template <class C, class K>
 inline bool has(const C& container, const K& key) {
 	return std::find(container.begin(), container.end(), key) != container.end();
