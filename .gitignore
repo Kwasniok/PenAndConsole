@@ -13,3 +13,6 @@ xcuserdata
 
 # Xcode Source-Control
 *.moved-aside
+
+# suppressed files
+PenAndConsole/tmp/*

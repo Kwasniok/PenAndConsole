@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		B401627A1C2B38F600141591 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B40162791C2B38F600141591 /* main.cpp */; };
+		B4245A3E1C3180B800DF1489 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A3C1C3180B800DF1489 /* Console.cpp */; };
+		B4245A411C31815600DF1489 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A3F1C31815600DF1489 /* Item.cpp */; };
+		B4245A441C31817A00DF1489 /* Reaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A421C31817A00DF1489 /* Reaction.cpp */; };
+		B4245A471C3181BF00DF1489 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A451C3181BF00DF1489 /* Action.cpp */; };
+		B4245A4A1C3181F700DF1489 /* Inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A481C3181F700DF1489 /* Inventory.cpp */; };
+		B4245A4D1C31822500DF1489 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A4B1C31822500DF1489 /* Context.cpp */; };
+		B4245A511C3182CC00DF1489 /* File_Writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A4F1C3182CC00DF1489 /* File_Writer.cpp */; };
+		B4245A541C31837500DF1489 /* File_Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4245A521C31837500DF1489 /* File_Reader.cpp */; };
+		B445A5A91C41AA8300358A4C /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B445A5A71C41AA8300358A4C /* tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,8 +33,27 @@
 
 /* Begin PBXFileReference section */
 		B40162761C2B38F600141591 /* PenAndConsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PenAndConsole; sourceTree = BUILT_PRODUCTS_DIR; };
-		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
+		B40162791C2B38F600141591 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B40162801C2B391E00141591 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		B4245A3C1C3180B800DF1489 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
+		B4245A3D1C3180B800DF1489 /* Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Console.hpp; sourceTree = "<group>"; };
+		B4245A3F1C31815600DF1489 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
+		B4245A401C31815600DF1489 /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
+		B4245A421C31817A00DF1489 /* Reaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reaction.cpp; sourceTree = "<group>"; };
+		B4245A431C31817A00DF1489 /* Reaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Reaction.hpp; sourceTree = "<group>"; };
+		B4245A451C3181BF00DF1489 /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
+		B4245A461C3181BF00DF1489 /* Action.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Action.hpp; sourceTree = "<group>"; };
+		B4245A481C3181F700DF1489 /* Inventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inventory.cpp; sourceTree = "<group>"; };
+		B4245A491C3181F700DF1489 /* Inventory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Inventory.hpp; sourceTree = "<group>"; };
+		B4245A4B1C31822500DF1489 /* Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
+		B4245A4C1C31822500DF1489 /* Context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Context.hpp; sourceTree = "<group>"; };
+		B4245A4E1C3182AC00DF1489 /* util_container.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util_container.h; sourceTree = "<group>"; };
+		B4245A4F1C3182CC00DF1489 /* File_Writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File_Writer.cpp; sourceTree = "<group>"; };
+		B4245A501C3182CC00DF1489 /* File_Writer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File_Writer.hpp; sourceTree = "<group>"; };
+		B4245A521C31837500DF1489 /* File_Reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File_Reader.cpp; sourceTree = "<group>"; };
+		B4245A531C31837500DF1489 /* File_Reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File_Reader.hpp; sourceTree = "<group>"; };
+		B445A5A71C41AA8300358A4C /* tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
+		B445A5A81C41AA8300358A4C /* tests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tests.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +96,27 @@
 			isa = PBXGroup;
 			children = (
 				B40162791C2B38F600141591 /* main.cpp */,
+				B445A5A81C41AA8300358A4C /* tests.hpp */,
+				B445A5A71C41AA8300358A4C /* tests.cpp */,
+				B4245A4E1C3182AC00DF1489 /* util_container.h */,
+				B4245A3D1C3180B800DF1489 /* Console.hpp */,
+				B4245A3C1C3180B800DF1489 /* Console.cpp */,
+				B4245A401C31815600DF1489 /* Item.hpp */,
+				B4245A3F1C31815600DF1489 /* Item.cpp */,
+				B4245A431C31817A00DF1489 /* Reaction.hpp */,
+				B4245A421C31817A00DF1489 /* Reaction.cpp */,
+				B4245A461C3181BF00DF1489 /* Action.hpp */,
+				B4245A451C3181BF00DF1489 /* Action.cpp */,
+				B4245A491C3181F700DF1489 /* Inventory.hpp */,
+				B4245A481C3181F700DF1489 /* Inventory.cpp */,
+				B4245A4C1C31822500DF1489 /* Context.hpp */,
+				B4245A4B1C31822500DF1489 /* Context.cpp */,
+				B4245A501C3182CC00DF1489 /* File_Writer.hpp */,
+				B4245A4F1C3182CC00DF1489 /* File_Writer.cpp */,
+				B4245A531C31837500DF1489 /* File_Reader.hpp */,
+				B4245A521C31837500DF1489 /* File_Reader.cpp */,
 			);
-			name = src;
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,7 +145,7 @@
 		B401626E1C2B38F600141591 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Jens Kwasniok";
 				TargetAttributes = {
 					B40162751C2B38F600141591 = {
@@ -129,6 +176,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B401627A1C2B38F600141591 /* main.cpp in Sources */,
+				B4245A3E1C3180B800DF1489 /* Console.cpp in Sources */,
+				B4245A411C31815600DF1489 /* Item.cpp in Sources */,
+				B4245A441C31817A00DF1489 /* Reaction.cpp in Sources */,
+				B4245A471C3181BF00DF1489 /* Action.cpp in Sources */,
+				B4245A4A1C3181F700DF1489 /* Inventory.cpp in Sources */,
+				B4245A4D1C31822500DF1489 /* Context.cpp in Sources */,
+				B4245A541C31837500DF1489 /* File_Reader.cpp in Sources */,
+				B4245A511C3182CC00DF1489 /* File_Writer.cpp in Sources */,
+				B445A5A91C41AA8300358A4C /* tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +268,7 @@
 		B401627E1C2B38F600141591 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -219,6 +276,7 @@
 		B401627F1C2B38F600141591 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -242,6 +300,7 @@
 				B401627F1C2B38F600141591 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
