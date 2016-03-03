@@ -42,13 +42,17 @@ int main(int argc, const char * argv[]) {
 	// main loop
 	bool show_possible_actions_permanently = false;
 	const std::string path_save = "/Users/Jens/Dateien/Programming/Xcode/PenAndConsole/PenAndConsole/tmp/";
-	do {
+	while (true) {
 
 		// whait for next line of input
 		c.aquire_input();
 
         
         // check for standart commands first:
+        
+        if (c.last_input() == "quit game") {
+            break;
+        }
         
         if (c.last_input() == "?") {
             print_help(c);
@@ -148,7 +152,7 @@ int main(int argc, const char * argv[]) {
 			print_possible_actions(c, cxt);
 		}
 
-	} while (c.last_input() != "quit game");
+	}
 
 }
 
