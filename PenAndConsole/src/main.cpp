@@ -22,6 +22,8 @@ using namespace std;
 bool begins_with(const std::string& str, const std::string& beg);
 bool is_valid_file_name(const string& str);
 
+void print_welcome_screen(Console& c);
+void print_help(Console& c);
 void print_game_stats(Console& c, Context& cxt);
 void print_debug_info(Console&c, Context& cxt);
 void print_possible_actions(Console& c, Context& cxt);
@@ -34,6 +36,8 @@ int main(int argc, const char * argv[]) {
 	// fundamental setup
 	Console c {cin, cout};
 	Context cxt;
+    
+    print_welcome_screen(c);
 
 	// main loop
 	bool show_possible_actions_permanently = false;
@@ -43,8 +47,14 @@ int main(int argc, const char * argv[]) {
 		// whait for next line of input
 		c.aquire_input();
 
-		// check for standart commands first:
-		if (begins_with(c.last_input(), "load game ")) {
+        
+        // check for standart commands first:
+        
+        if (c.last_input() == "?") {
+            print_help(c);
+        }
+        
+        else if (begins_with(c.last_input(), "load game ")) {
 
 			std::string file_name = c.last_input().substr(10); // cut of "load game "
 			if(is_valid_file_name(file_name)) {
@@ -162,6 +172,23 @@ bool is_valid_file_name(const string& str){
 			return false;
 	}
 	return !str.empty();
+}
+
+void print_welcome_screen(Console& c) {
+    c.costream() << "Welcome to Pen & Console " << endl
+    << "type ? for help" << endl << endl;
+}
+
+void print_help(Console& c) {
+    c.costream()
+    << "available commands:" << endl
+    << "load game <name here>" << endl
+    << "save game <name here>" << endl
+    << "show game stats" << endl
+    << "show possible actions" << endl
+    << "toggle pin show possible actions" << endl
+    << "show inventory" << endl
+    << "quit game" << endl;
 }
 
 void print_game_stats(Console& c, Context& cxt) {
