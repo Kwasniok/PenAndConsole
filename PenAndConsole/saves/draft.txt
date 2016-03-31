@@ -1,0 +1,19 @@
+ ## draft.txt ##
+
+	Script:
+        - context vars add/remove manipulate: set/add/subtract etc.
+        - items add/remove/status (?)
+        - checks: item/var is equals is not equals (has status) etc.
+        - call actions
+
+        - decision tree:
+            - if/else branching
+
+        - extras:
+            - timer (?)
+
+    UI:
+        - welcome screen √
+        - help screen √
+        - display status: place/direction etc.
+        - show available games

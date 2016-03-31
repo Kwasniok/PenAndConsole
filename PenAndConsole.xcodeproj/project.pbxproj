@@ -54,6 +54,7 @@
 		B4245A531C31837500DF1489 /* File_Reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File_Reader.hpp; sourceTree = "<group>"; };
 		B445A5A71C41AA8300358A4C /* tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
 		B445A5A81C41AA8300358A4C /* tests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tests.hpp; sourceTree = "<group>"; };
+		B4BF72821CAD2D33001131EA /* saves */ = {isa = PBXFileReference; lastKnownFileType = folder; path = saves; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				B40162801C2B391E00141591 /* .gitignore */,
+				B4BF72821CAD2D33001131EA /* saves */,
 				B40162811C2B395B00141591 /* src */,
 			);
 			path = PenAndConsole;

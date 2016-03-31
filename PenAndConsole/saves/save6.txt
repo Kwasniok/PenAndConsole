@@ -1,0 +1,28 @@
+Context {
+	actions = {
+		Action {
+			key = "a";
+			needs_items = {
+				"i"
+			};
+			reaction = Reaction {
+				description = "did a";
+				take_items = {
+					"i"
+				}
+			}
+		};
+		Action {
+			key = "b";
+			forbids_items = {
+				"i"
+			};
+			reaction = Reaction {
+				description = "did b";
+				give_items = {
+					"i"
+				}
+			}
+		}
+	}
+}

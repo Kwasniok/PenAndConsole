@@ -1,0 +1,51 @@
+Context {
+	actions = {
+		Action {
+			key = "a";
+			needs_cxt_vars = {
+				Pair {first = var; second = true};
+			};
+			reaction = Reaction {
+				description = "did a"
+			}
+		};
+		Action {
+			key = "b";
+			needs_cxt_vars = {
+				Pair {first = var; second = !true};
+			};
+			reaction = Reaction {
+				description = "did b"
+			}
+		};
+
+		Action {
+			key = "toggle";
+			needs_cxt_vars = {
+				Pair {first = var; second = true};
+			};
+			reaction = Reaction {
+				description = "var = false";
+				set_cxt_vars = {
+					Pair {first = var; second = false}
+				};
+			}
+		};
+		Action {
+			key = "toggle";
+			needs_cxt_vars = {
+				Pair {first = var; second = false};
+			};
+			reaction = Reaction {
+				description = "var = true";
+				set_cxt_vars = {
+					Pair {first = var; second = true}
+				};
+			}
+		};
+
+	};
+	cxt_vars = Map {
+		Pair {first = var; second = true}
+	}
+}

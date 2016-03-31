@@ -1,0 +1,21 @@
+Context {
+	actions = {
+		Action {
+			key = "@loaded_game";
+			hidden = true;
+			trigger_once_only = true;
+			was_triggered = false;
+			reaction = Reaction {
+				description = "Hello. Welcome to this dark place.
+Have fun exploring this nightmare!"
+			}
+		};
+		Action {
+			key = "@loaded_game";
+			hidden = true;
+			reaction = Reaction {
+				description = "hello again"
+			}
+		}
+	}
+}

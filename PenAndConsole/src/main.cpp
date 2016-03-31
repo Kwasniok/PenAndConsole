@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
 
 	// main loop
 	bool show_possible_actions_permanently = false;
-	const std::string path_save = "/Users/Jens/Dateien/Programming/Xcode/PenAndConsole/PenAndConsole/tmp/";
+	const std::string path_save = "/Users/Jens/Dateien/Programming/Xcode/PenAndConsole/PenAndConsole/saves/";
 	while (true) {
 
 		// whait for next line of input

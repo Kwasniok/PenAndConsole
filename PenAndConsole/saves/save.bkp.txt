@@ -1,0 +1,572 @@
+Context {
+	actions = {
+
+		Action {
+			key = "@loaded_game";
+			hidden = true;
+			trigger_once_only = true;
+			reaction = Reaction {
+				narrative_description = "Hello. Welcome to this dark place.\nHave fun exploring this nightmare!\n\nYou find yourself in front of a door..."
+			}
+		};
+		Action {
+			key = "@loaded_game";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "Welcome back!"
+			}
+		};
+		Action {
+			key = "@saved_game";
+			hidden = true;
+			trigger_once_only = true;
+			reaction = Reaction {
+				narrative_description = "So, you found this option? Great!"
+			}
+		};
+		Action {
+			key = "@saved_game";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "Oh, you saved the game? Are you afraid of something?"
+			}
+		};
+
+		Action {
+			key = "look around";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start}
+			};
+			reaction = Reaction {
+				description ="You are in front of a wooden door inside a stone portal.\nThis place must be very old - some stones came off the wall.";
+			}
+		};
+		Action {
+			key = "open door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = door; second = closed}
+			};
+			reaction = Reaction {
+				narrative_description = "*crunching noise*";
+				set_cxt_vars = {
+					Pair {first = door; second = opened}
+				}
+			}
+		};
+		Action {
+			key = "kick door";
+			hidden = true;
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = door; second = closed}
+			};
+			reaction = Reaction {
+				narrative_description = "*ouch*\nAt least it's open now.";
+				set_cxt_vars = {
+					Pair {first = door; second = opened}
+				}
+			}
+		};
+		Action {
+			key = "close door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = door; second = opened}
+			};
+			reaction = Reaction {
+				narrative_description = "*crunching noise*";
+				set_cxt_vars = {
+					Pair {first = door; second = closed}
+				}
+			}
+		};
+
+		Action {
+			key = "walk through door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = door; second = opened}
+			};
+			reaction = Reaction {
+				narrative_description = "It's dark & very cold inside this room.";
+				set_cxt_vars = {
+					Pair {first = player_position; second = room_behind_door};
+					Pair {first = player_knows_door_in_room_behind_door; second = true};
+				}
+			}
+		};
+		Action {
+			key = "look around";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_door}
+			};
+			reaction = Reaction {
+				narrative_description = "It's very dark inside here but can see some light shining through a window.";
+			}
+		};
+		Action {
+			key = "walk through door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_door};
+				Pair {first = door; second = closed}
+			};
+			reaction = Reaction {
+				narrative_description = "There is no way back.\nThe door must have locked itself somehow.";
+			}
+		};
+		Action {
+			key = "walk through door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_door};
+				Pair {first = door; second = opened}
+			};
+			reaction = Reaction {
+				narrative_description = "You are leaving the dark room behind you returning to the portal.";
+				set_cxt_vars = {
+					Pair {first = player_position; second = start};
+				};
+			}
+		};
+		Action {
+			key = "walk to window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_door};
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+					Pair {first = player_position; second = room_behind_window};
+				}
+			}
+		};
+
+
+		Action {
+			key = "grab stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = window_status; second = intact}
+			};
+			forbids_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*grabbed stone*";
+				give_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "grab stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = window_status; second = !intact}
+			};
+			forbids_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*grabbed stone*\nPlease, don't destroy anything!";
+				give_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "inspect inventory";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "This stone lays beautiful in your hand."
+			}
+		};
+
+		Action {
+			key = "throw stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = one}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "Off it goes...";
+				set_cxt_vars = {
+					Pair {first = throw_count; second = two}
+				};
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = two}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "Off it goes... again";
+				set_cxt_vars = {
+					Pair {first = throw_count; second = three}
+				};
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = three}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*sound of braking glass*";
+				set_cxt_vars = {
+					Pair {first = throw_count; second = deactivated};
+					Pair {first = window_status; second = broken}
+				};
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "throw stone";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start};
+				Pair {first = throw_count; second = deactivated}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*no effect*";
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "walk to window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = start}
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+					Pair {first = player_position; second = window}
+				}
+			}
+		};
+		Action {
+			key = "walk to portal";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window}
+			};
+			reaction = Reaction {
+				narrative_description = "You returned to your starting position.";
+				set_cxt_vars = {
+					Pair {first = player_position; second = start}
+				}
+			}
+		};
+		Action {
+			key = "break window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window};
+				Pair {first = window_status; second = !broken}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*sound of breaking glass*";
+				set_cxt_vars = {
+					Pair {first = window_status; second = broken}
+				};
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "inspect window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window};
+				Pair {first = window_status; second = !broken}
+			};
+			reaction = Reaction {
+				narrative_description = "It's a window made up of coloured pieces of glass. They are almost all dyed red. It seems to represent something religious.";
+			}
+		};
+		Action {
+			key = "inspect broken window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window};
+				Pair {first = window_status; second = broken}
+			};
+			reaction = Reaction {
+				narrative_description = "Now it's broken. Almost all pieces fell inside the building.";
+			}
+		};
+		Action {
+			key = "grab coloured glass";
+			trigger_once_only = true;
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window};
+				Pair {first = window_status; second = broken}
+			};
+			forbids_items = {
+				"coloured glass"
+			};
+			reaction = Reaction {
+				narrative_description = "It's very sharp!";
+				give_items = {
+					"coloured glass"
+				}
+			}
+		};
+		Action {
+			key = "climb through broken window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = window};
+				Pair {first = window_status; second = broken}
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+						Pair {first = player_position; second = room_behind_window};
+				}
+			}
+		};
+
+
+		Action {
+			key = "look around";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+			};
+			reaction = Reaction {
+				narrative_description = "There is not enough light to see something.";
+			}
+		};
+		Action {
+			key = "walk around";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = player_knows_door_in_room_behind_door; second = false};
+			};
+			reaction = Reaction {
+				narrative_description = "After wandering around in the dark for a moment you discover a door.";
+				set_cxt_vars = {
+						Pair {first = player_knows_door_in_room_behind_door; second = true};
+				}
+			}
+		};
+		Action {
+			key = "walk to door";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = player_knows_door_in_room_behind_door; second = true};
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+						Pair {first = player_position; second = room_behind_door};
+				}
+			}
+		};
+		Action {
+			key = "walk to door";
+			hidden = true;
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+						Pair {first = player_position; second = room_behind_door};
+				}
+			}
+		};
+		Action {
+			key = "climb through broken window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = window_status; second = broken}
+			};
+			reaction = Reaction {
+				narrative_description = "";
+				set_cxt_vars = {
+						Pair {first = player_position; second = window};
+				}
+			}
+		};
+		Action {
+			key = "break window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = window_status; second = !broken}
+			};
+			needs_items = {
+				"stone"
+			};
+			reaction = Reaction {
+				narrative_description = "*sound of breaking glass*";
+				set_cxt_vars = {
+					Pair {first = window_status; second = broken}
+				};
+				take_items = {
+					"stone"
+				}
+			}
+		};
+		Action {
+			key = "grab coloured glass";
+			trigger_once_only = true;
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = window_status; second = broken}
+			};
+			forbids_items = {
+				"coloured glass"
+			};
+			reaction = Reaction {
+				narrative_description = "It's very sharp!";
+				give_items = {
+					"coloured glass"
+				}
+			}
+		};
+		Action {
+			key = "inspect window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = window_status; second = !broken}
+			};
+			reaction = Reaction {
+				narrative_description = "It's a window made up of coloured pieces of glass. They are almost all dyed red. It seems to represent something religious.";
+			}
+		};
+		Action {
+			key = "inspect broken window";
+			needs_cxt_vars = {
+				Pair {first = player_position; second = room_behind_window};
+				Pair {first = window_status; second = broken}
+			};
+			reaction = Reaction {
+				narrative_description = "Now it's broken. Almost all pieces fell inside this room.";
+			}
+		};
+
+
+		Action {
+			key = "hello";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*no respond*"
+			}
+		};
+		Action {
+			key = "hello?";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*distant whispering*"
+			}
+		};
+		Action {
+			key = "hello!";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*...*"
+			}
+		};
+		Action {
+			key = "ping";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*pong*"
+			}
+		};
+		Action {
+			key = "am I dead?";
+			trigger_once_only = true;
+			reaction = Reaction {
+				narrative_description = "Maybe."
+			}
+		};
+		Action {
+			key = "help";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*no help*"
+			}
+		};
+		Action {
+			key = "boring";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "And it's just the beginning ..."
+			}
+		};
+		Action {
+			key = "leave me alone";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*nevermore*"
+			}
+		};
+		Action {
+			key = "sing a song";
+			hidden = true;
+			reaction = Reaction {
+				narrative_description = "*nobody cares*"
+			}
+		};
+		Action {
+			key = "give me some candy";
+			hidden = true;
+			reaction = Reaction {
+				give_items = {
+					"candy"
+				}
+			}
+		};
+		Action {
+			key = "inspect inventory";
+			hidden = true;
+			needs_items = {
+				"dirt"
+			};
+			reaction = Reaction {
+				narrative_description = "At least you have some dirt."
+			}
+		};
+
+	};
+	inventory = Inventory {
+		"dirt"
+	};
+	cxt_vars = Map {
+		Pair {first = player_position; second = start};
+		Pair {first = door; second = closed};
+		Pair {first = throw_count; second = one};
+		Pair {first = window_status; second = intact};
+		Pair {first = player_knows_door_in_room_behind_door; second = false}
+	}
+}
